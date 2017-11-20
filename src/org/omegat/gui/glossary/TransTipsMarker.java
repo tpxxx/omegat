@@ -37,7 +37,6 @@ import org.omegat.core.data.SourceTextEntry;
 import org.omegat.gui.editor.UnderlineFactory;
 import org.omegat.gui.editor.mark.IMarker;
 import org.omegat.gui.editor.mark.Mark;
-import org.omegat.util.StringUtil;
 import org.omegat.util.Token;
 import org.omegat.util.gui.Styles;
 
@@ -69,24 +68,9 @@ public class TransTipsMarker implements IMarker {
         for (GlossaryEntry ent : glossaryEntries) {
             String tooltip = ent.toStyledString().toHTML();
             List<Token> tokens = Core.getGlossaryManager().searchSourceMatchTokens(ste, ent);
-            if (keepMatch(tokens, ste.getSrcText(), ent)) {
-                marks.addAll(getMarksForTokens(tokens, ste.getSrcText(), tooltip));
-            }
+            marks.addAll(getMarksForTokens(tokens, ste.getSrcText(), tooltip));
         }
         return marks;
-    }
-
-    private static boolean keepMatch(List<Token> tokens, String srcTxt, GlossaryEntry ent) {
-        // Filter out matches where the glossary entry is all caps but the source-text match is not.
-        if (StringUtil.isUpperCase(ent.getSrcText())) {
-            for (Token tok : tokens) {
-                String matched = tok.getTextFromString(srcTxt);
-                if (!StringUtil.isUpperCase(matched)) {
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 
     private static List<Mark> getMarksForTokens(List<Token> tokens, String srcText, String tooltip) {
