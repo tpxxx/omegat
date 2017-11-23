@@ -343,6 +343,11 @@ distributions {
                 from(macJRE) {
                     into 'OmegaT.app/Contents/PlugIns/jre.bundle'
                     fileMode 0755
+                    filesMatching('**/java.security') {
+                        filter { line ->
+                            line == '#crypto.policy=unlimited' ? 'crypto.policy=unlimited' : line
+                        }
+                    }
                 }
             }
             macDistZip.archiveName = "${applicationName}_${version}${omtVersion.beta}_Mac.zip"
@@ -357,6 +362,11 @@ distributions {
                 from(jrePath) {
                     into 'jre'
                     fileMode 0755
+                    filesMatching('**/java.security') {
+                        filter { line ->
+                            line == '#crypto.policy=unlimited' ? 'crypto.policy=unlimited' : line
+                        }
+                    }
                 }
             }
         }
@@ -522,6 +532,16 @@ ext.makeWinTask = { args ->
         from ('release/win32-specific') {
             include 'OmegaT.exe', 'OmegaT.l4J.ini'
         }
+        if (args.jrePath) {
+            from (args.jrePath) {
+                into 'jre'
+                filesMatching('**/java.security') {
+                    filter { line ->
+                        line == '#crypto.policy=unlimited' ? 'crypto.policy=unlimited' : line
+                    }
+                }
+            }
+        }
         destinationDir = file("${buildDir}/innosetup/${args.name}")
         def fullVersion = project.version + omtVersion.beta
         def installerBasename = "OmegaT_${fullVersion}_${args.suffix}"
@@ -539,7 +559,7 @@ ext.makeWinTask = { args ->
                          OUTPUT_DIR_SUBST: distsDir.path,
                          OUTPUT_BASENAME_SUBST: installerBasename.toString(),
                          JRE_COMMENT_SUBST: args.jrePath ? '' : ';',
-                         JRE_PATH_SUBST: args.jrePath ? args.jrePath.path : '',
+                         JRE_PATH_SUBST: args.jrePath ? 'jre' : '',
                          CUSTOM_MESSAGES_SUBST: getInnoSetupCustomMessages(),
                          ARCHITECTURE_SUBST: args.arch ?: ''])
                 filteringCharset = 'UTF-8'

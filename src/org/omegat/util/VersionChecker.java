@@ -46,6 +46,7 @@ public final class VersionChecker {
     // Prior to Java 8u151 you had to install the JCE Unlimited Strength Jurisdiction Policy Files:
     // http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html
     // As of Java 8u151 you can set `crypto.policy=unlimited` in java.security.
+    // This is enabled in OmegaT-bundled JREs.
     // TODO: Come up with a better solution
     private static final String VERSION_FILE = "https://omegat.sourceforge.io/Version-"
             + (OStrings.IS_BETA ? "latest" : "standard") + ".properties";
