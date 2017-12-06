@@ -122,7 +122,9 @@ public final class DeNormalize {
    */
   public static String capitalizeLineFirstLetter(String line) {
     String result = null;
-    Pattern regexp = Pattern.compile("[^\\p{Punct}\\p{Space}¡¿]");
+    // U+00A1 INVERTED EXCLAMATION MARK
+    // U+00BF INVERTED QUESTION MARK
+    Pattern regexp = Pattern.compile("[^\\p{Punct}\\p{Space}\u00a1\u00bf]");
     Matcher matcher = regexp.matcher(line);
     if (matcher.find()) {
       String match = matcher.group(0);
@@ -145,9 +147,9 @@ public final class DeNormalize {
     result = result.replace(" ,", ",");
     result = result.replace(" .", ".");
     result = result.replace(" !", "!");
-    result = result.replace("¡ ", "¡");
+    result = result.replace("\u00a1 ", "\u00a1"); // U+00A1 INVERTED EXCLAMATION MARK
     result = result.replace(" ?", "?");
-    result = result.replace("¿ ", "¿");
+    result = result.replace("\u00bf ", "\u00bf"); // U+00BF INVERTED QUESTION MARK
     result = result.replace(" )", ")");
     result = result.replace(" ]", "]");
     result = result.replace(" }", "}");
