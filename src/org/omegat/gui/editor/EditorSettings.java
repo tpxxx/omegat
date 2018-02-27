@@ -561,9 +561,7 @@ public class EditorSettings implements IEditorSettings {
         //determine bold
         Boolean bold = false;
         if (isSource) {
-            if (viewSourceBold || (active && viewActiveSourceBold)) {
-                bold = true;
-            }
+            bold = active ? viewActiveSourceBold : viewSourceBold;
         }
 
         //determine italic

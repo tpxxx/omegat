@@ -66,7 +66,6 @@ public class ViewOptionsController extends BasePreferencesController {
     private void initGui() {
         panel = new ViewOptionsPanel();
         panel.templateActivator.addActionListener(e -> updateEnabledness());
-        panel.viewSourceAllBold.addActionListener(e -> updateEnabledness());
         panel.variablesList
                 .setModel(new DefaultComboBoxModel<>(new Vector<>(ModificationInfoManager.getModInfoVariables())));
         panel.variablesListND.setModel(
@@ -137,9 +136,6 @@ public class ViewOptionsController extends BasePreferencesController {
         panel.variablesLabelND.setEnabled(templatesEnabled);
         panel.variablesListND.setEnabled(templatesEnabled);
         panel.insertButtonND.setEnabled(templatesEnabled);
-
-        boolean allBold = panel.viewSourceAllBold.isSelected();
-        panel.viewSourceActiveBold.setEnabled(!allBold);
     }
 
     @Override
