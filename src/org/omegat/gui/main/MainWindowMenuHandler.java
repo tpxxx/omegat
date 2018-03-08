@@ -64,6 +64,7 @@ import org.omegat.gui.dialogs.AboutDialog;
 import org.omegat.gui.dialogs.GoToSegmentDialog;
 import org.omegat.gui.dialogs.LastChangesDialog;
 import org.omegat.gui.dialogs.LogDialog;
+import org.omegat.gui.dialogs.VersionCheckDialog;
 import org.omegat.gui.editor.EditorSettings;
 import org.omegat.gui.editor.EditorUtils;
 import org.omegat.gui.editor.IEditor;
@@ -197,15 +198,15 @@ public final class MainWindowMenuHandler {
         }
         return true;
     }
-    
+
     public void projectCommitTargetFilesActionPerformed() {
         if (!checkTags()) {
                 return;
         }
-        
+
         ProjectUICommands.projectCompileAndCommit();
     }
-    
+
     /**
      * Commit source files
      */
@@ -960,5 +961,12 @@ public final class MainWindowMenuHandler {
      */
     public void helpLogMenuItemActionPerformed() {
         new LogDialog(mainWindow).setVisible(true);
+    }
+
+    /**
+     * Check for updates
+     */
+    public void helpUpdateCheckMenuItemActionPerformed() {
+        VersionCheckDialog.checkAndShowResultAsync(mainWindow);
     }
 }
