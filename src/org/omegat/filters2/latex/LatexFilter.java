@@ -296,6 +296,8 @@ public class LatexFilter extends AbstractFilter {
         oneArgNoText.add("\\includegraphics");
         oneArgNoText.add("\\documentclass");
         oneArgNoText.add("\\usepackage");
+     
+        oneArgNoText.add("\\nameref");
 
         oneArgInlineText.add("\\emph");
         oneArgInlineText.add("\\textbf");
@@ -305,6 +307,9 @@ public class LatexFilter extends AbstractFilter {
         oneArgInlineText.add("\\hbox");
         oneArgInlineText.add("\\mbox");
         oneArgInlineText.add("\\vbox");
+     
+        oneArgInlineText.add("\\logo");
+     
 
         oneArgParText.add("\\typeout");
         oneArgParText.add("\\footnote");
